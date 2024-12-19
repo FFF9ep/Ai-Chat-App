@@ -1,6 +1,6 @@
-# 🎉 Live-Chat-App 🎉
+# 🎉 Ai-Chat-App 🎉
 
-Welcome to the **Live-Chat-App**! This Java-powered application is designed for real-time communication, offering a customizable UI and an engaging user experience. Dive in and connect with others instantly! 🌐💬
+Welcome to the **Ai-Chat-App**! This Java-powered application is designed for real-time communication, offering a customizable UI and an engaging user experience. Dive in and connect with others instantly! 🌐💬
 
 ## 📚 Project Overview
 
@@ -14,12 +14,12 @@ This project is developed as part of the Final Practical Exam assignment. It sho
 
 ## 🛠️ Getting Started
 
-To get started with the Live-Chat-App, follow these steps:
+To get started with the Ai-Chat-App, follow these steps:
 
 1. **Clone the Repository**:    ```bash
-   git clone https://github.com/FFF9ep/live-chat-app.git   ```
+   git clone https://github.com/FFF9ep/ai-chat-app.git   ```
 2. **Navigate to the Project Directory**:   ```bash
-   cd live-chat-app   ```
+   cd ai-chat-app   ```
 3. **Build the Project**:   ```bash
    ./gradlew build   ```
 4. **Run the Application**:   ```bash
@@ -39,4 +39,4 @@ For any questions or feedback, please reach out to the project maintainer at [fa
 
 ---
 
-Thank you for checking out the Live-Chat-App! We hope you enjoy using it as much as we enjoyed building it. Happy chatting! 🎈
+Thank you for checking out the Ai-Chat-App! We hope you enjoy using it as much as we enjoyed building it. Happy chatting! 🎈
