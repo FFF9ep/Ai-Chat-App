@@ -1,5 +1,3 @@
-// File: BaseFrame.java
-
 package ui;
 
 import javax.swing.*;

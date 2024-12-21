@@ -14,7 +14,6 @@ public class RegisterPage extends BaseFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        // Title
         JLabel titleLabel = new JLabel("Create an Account");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         gbc.gridx = 0;
@@ -22,9 +21,18 @@ public class RegisterPage extends BaseFrame {
         gbc.gridwidth = 2;
         contentPanel.add(titleLabel, gbc);
 
-        // Email Field
-        JLabel emailLabel = new JLabel("Email address:");
+        JLabel usernameLabel = new JLabel("Username:");
         gbc.gridy = 1;
+        gbc.gridx = 0;
+        gbc.gridwidth = 1;
+        contentPanel.add(usernameLabel, gbc);
+
+        JTextField usernameField = new JTextField(20);
+        gbc.gridx = 1;
+        contentPanel.add(usernameField, gbc);
+
+        JLabel emailLabel = new JLabel("Email address:");
+        gbc.gridy = 2;
         gbc.gridx = 0;
         gbc.gridwidth = 1;
         contentPanel.add(emailLabel, gbc);
@@ -33,9 +41,8 @@ public class RegisterPage extends BaseFrame {
         gbc.gridx = 1;
         contentPanel.add(emailField, gbc);
 
-        // Password Field
         JLabel passwordLabel = new JLabel("Password:");
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.gridx = 0;
         contentPanel.add(passwordLabel, gbc);
 
@@ -43,21 +50,18 @@ public class RegisterPage extends BaseFrame {
         gbc.gridx = 1;
         contentPanel.add(passwordField, gbc);
 
-        // Register Button
         JButton registerButton = new JButton("Sign Up");
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         contentPanel.add(registerButton, gbc);
 
-        // Link to Login
         JLabel loginLabel = new JLabel("Already have an account? Log In");
         loginLabel.setForeground(Color.BLUE);
         loginLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         contentPanel.add(loginLabel, gbc);
 
-        // Action Listeners
         registerButton.addActionListener(e -> {
             LoginPage loginPage = new LoginPage();
             loginPage.applyTheme(false);

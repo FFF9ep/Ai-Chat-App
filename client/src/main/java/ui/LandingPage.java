@@ -5,9 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginPage extends BaseFrame {
-    public LoginPage() {
-        super("Login Page");
+public class LandingPage extends BaseFrame {
+    public LandingPage() {
+        super("Landing Page");
         initUI();
     }
 
@@ -16,57 +16,36 @@ public class LoginPage extends BaseFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        JLabel titleLabel = new JLabel("Welcome Back");
+        JLabel titleLabel = new JLabel("Welcome to AI Chat App");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         contentPanel.add(titleLabel, gbc);
 
-        JLabel emailLabel = new JLabel("Email address:");
-        gbc.gridy = 1;
-        gbc.gridx = 0;
-        gbc.gridwidth = 1;
-        contentPanel.add(emailLabel, gbc);
-
-        JTextField emailField = new JTextField(20);
-        gbc.gridx = 1;
-        contentPanel.add(emailField, gbc);
-
-        JLabel passwordLabel = new JLabel("Password:");
-        gbc.gridy = 2;
-        gbc.gridx = 0;
-        contentPanel.add(passwordLabel, gbc);
-
-        JPasswordField passwordField = new JPasswordField(20);
-        gbc.gridx = 1;
-        contentPanel.add(passwordField, gbc);
-
         JButton loginButton = new JButton("Log In");
-        gbc.gridy = 3;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
         gbc.gridx = 0;
-        gbc.gridwidth = 2;
         contentPanel.add(loginButton, gbc);
 
-        JLabel registerLabel = new JLabel("Don’t have an account? Sign Up");
-        registerLabel.setForeground(Color.BLUE);
-        registerLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        gbc.gridy = 4;
-        contentPanel.add(registerLabel, gbc);
+        JButton signUpButton = new JButton("Create an Account");
+        gbc.gridx = 1;
+        contentPanel.add(signUpButton, gbc);
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainChatPage mainChatPage = new MainChatPage("YOUR_API_KEY_HERE");
-                mainChatPage.applyTheme(false);
-                mainChatPage.setVisible(true);
+                LoginPage loginPage = new LoginPage();
+                loginPage.applyTheme(false);
+                loginPage.setVisible(true);
                 dispose();
             }
         });
 
-        registerLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+        signUpButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 RegisterPage registerPage = new RegisterPage();
                 registerPage.applyTheme(false);
                 registerPage.setVisible(true);
@@ -88,9 +67,9 @@ public class LoginPage extends BaseFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            LoginPage loginPage = new LoginPage();
-            loginPage.applyTheme(false);
-            loginPage.setVisible(true);
+            LandingPage landingPage = new LandingPage();
+            landingPage.applyTheme(false);
+            landingPage.setVisible(true);
         });
     }
 }
