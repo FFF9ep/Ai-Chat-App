@@ -16,6 +16,17 @@ public class LandingPage extends BaseFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
+        // ImageIcon logoIcon = new
+        // ImageIcon(getClass().getResource("/assets/images/logo.png"));
+        // Image image = logoIcon.getImage(); // transform it
+        // Image newimg = image.getScaledInstance(100, 100,
+        // java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        // logoIcon = new ImageIcon(newimg); // transform it back
+        // JLabel logoLabel = new JLabel(logoIcon);
+        // gbc.gridx = 0;
+        // gbc.gridy = 0;
+        // gbc.gridwidth = 2;
+        // contentPanel.add(logoLabel, gbc);
         JLabel titleLabel = new JLabel("Welcome to AI Chat App");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         gbc.gridx = 0;
