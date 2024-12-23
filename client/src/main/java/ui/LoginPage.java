@@ -4,8 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import org.json.JSONObject;
 
 public class LoginPage extends BaseFrame {
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+
+    // private static final String API_BASE_URL = "http://13.229.209.199:3010";
+    private static final String API_BASE_URL = "http://localhost:3000";
+
     public LoginPage() {
         super("Login Page");
         initUI();
@@ -23,22 +34,22 @@ public class LoginPage extends BaseFrame {
         gbc.gridwidth = 2;
         contentPanel.add(titleLabel, gbc);
 
-        JLabel emailLabel = new JLabel("Email address:");
+        JLabel emailLabel = new JLabel("Username:");
         gbc.gridy = 1;
         gbc.gridx = 0;
         gbc.gridwidth = 1;
         contentPanel.add(emailLabel, gbc);
 
-        JTextField emailField = new JTextField(20);
+        usernameField = new JTextField(20);
         gbc.gridx = 1;
-        contentPanel.add(emailField, gbc);
+        contentPanel.add(usernameField, gbc);
 
         JLabel passwordLabel = new JLabel("Password:");
         gbc.gridy = 2;
         gbc.gridx = 0;
         contentPanel.add(passwordLabel, gbc);
 
-        JPasswordField passwordField = new JPasswordField(20);
+        passwordField = new JPasswordField(20);
         gbc.gridx = 1;
         contentPanel.add(passwordField, gbc);
 
@@ -57,10 +68,50 @@ public class LoginPage extends BaseFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainChatPage mainChatPage = new MainChatPage("YOUR_API_KEY_HERE");
-                mainChatPage.applyTheme(false);
-                mainChatPage.setVisible(true);
-                dispose();
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+
+                if (username.isEmpty() || password.isEmpty()) {
+                    JOptionPane.showMessageDialog(LoginPage.this,
+                            "Username dan password harus diisi",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                try {
+                    JSONObject requestBody = new JSONObject();
+                    requestBody.put("username", username);
+                    requestBody.put("password", password);
+
+                    HttpClient client = HttpClient.newHttpClient();
+                    HttpRequest request = HttpRequest.newBuilder()
+                            .uri(URI.create(API_BASE_URL + "/api/login"))
+                            .header("Content-Type", "application/json")
+                            .POST(HttpRequest.BodyPublishers.ofString(requestBody.toString()))
+                            .build();
+
+                    HttpResponse<String> response = client.send(request,
+                            HttpResponse.BodyHandlers.ofString());
+
+                    if (response.statusCode() == 200) {
+                        MainChatPage mainChatPage = new MainChatPage(username);
+                        mainChatPage.applyTheme(false);
+                        mainChatPage.setVisible(true);
+                        dispose();
+                    } else {
+                        JSONObject error = new JSONObject(response.body());
+                        JOptionPane.showMessageDialog(LoginPage.this,
+                                error.getString("error"),
+                                "Login Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(LoginPage.this,
+                            "Error connecting to server: " + ex.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
