@@ -11,7 +11,6 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import org.json.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.UUID;
 
 public class MainChatPage extends BaseFrame {
     // private static final String API_BASE_URL = "http://localhost:3000";
@@ -182,29 +181,56 @@ public class MainChatPage extends BaseFrame {
     private void initComponents() {
         listModel = new DefaultListModel<>();
         chatList = new JList<>(listModel);
-        chatList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        chatList.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        chatList.setBackground(new Color(245, 245, 245));
+        chatList.setForeground(Color.BLACK);
 
         rightPanel = new JPanel();
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 
         inputArea = new JTextArea(3, 40);
+        inputArea.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        inputArea.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200), 1));
         inputArea.setLineWrap(true);
         inputArea.setWrapStyleWord(true);
+        inputArea.setBackground(Color.WHITE);
+        inputArea.setForeground(Color.BLACK);
 
         sendButton = new JButton("Send");
+        sendButton.setFont(new Font("Segoe UI", Font.BOLD, 14)); // Ukuran font
+        sendButton.setBackground(new Color(33, 150, 243));
+        sendButton.setForeground(Color.WHITE);
+        sendButton.setFocusPainted(false);
+        sendButton.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20)); // Padding
+        sendButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         sendButton.setEnabled(false);
+
+        // Pastikan ukuran tombol cukup besar
+        sendButton.setPreferredSize(new Dimension(100, 40)); // Atur dimensi tombol
 
         chatHistory = new HashMap<>();
         isProcessing = false;
     }
 
     private void setupLayout() {
-        contentPanel.setLayout(new BorderLayout(0, 0));
+        contentPanel.setLayout(new BorderLayout());
 
-        // Header panel untuk tombol logout
-        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        // Header panel
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(new Color(240, 240, 240));
+        JLabel titleLabel = new JLabel("AI Chat Application", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        titleLabel.setForeground(new Color(0, 0, 0));
+        headerPanel.add(titleLabel, BorderLayout.CENTER);
+
         JButton logoutButton = new JButton("Logout");
         logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        logoutButton.setBackground(new Color(255, 69, 58));
+        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setFocusPainted(false);
+        logoutButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        logoutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         logoutButton.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(
                     this,
@@ -219,16 +245,23 @@ public class MainChatPage extends BaseFrame {
                 dispose();
             }
         });
+
         headerPanel.add(logoutButton);
         contentPanel.add(headerPanel, BorderLayout.NORTH);
 
         // Left panel setup
-        JPanel leftPanel = new JPanel(new BorderLayout(0, 0));
+        JPanel leftPanel = new JPanel(new BorderLayout());
+        leftPanel.setBackground(new Color(240, 240, 240));
         JButton newChatButton = new JButton("New Chat");
-        newChatButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        newChatButton.setPreferredSize(new Dimension(200, 40));
-
+        newChatButton.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        newChatButton.setBackground(new Color(33, 150, 243));
+        newChatButton.setForeground(Color.WHITE);
+        newChatButton.setFocusPainted(false);
+        newChatButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        newChatButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        newChatButton.addActionListener(e -> createNewChat());
         leftPanel.add(newChatButton, BorderLayout.NORTH);
+        leftPanel.add(new JScrollPane(chatList), BorderLayout.CENTER);
 
         // Chat list with delete buttons
         JPanel chatListPanel = new JPanel(new BorderLayout());
@@ -282,25 +315,28 @@ public class MainChatPage extends BaseFrame {
         leftPanel.add(chatListPanel, BorderLayout.CENTER);
 
         // Right panel setup
-        rightPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.weightx = 1;
-        gbc.weighty = 0;
-        gbc.anchor = GridBagConstraints.SOUTH;
-
-        // Tambahkan panel kosong yang akan "mendorong" pesan ke bawah
-        JPanel spacer = new JPanel();
-        gbc.weighty = 1;
-        rightPanel.add(spacer, gbc);
-        gbc.weighty = 0;
-
         chatScrollPane = new JScrollPane(rightPanel);
         chatScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        chatScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        chatScrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Tambahkan panel kosong yang akan "mendorong" pesan ke bawah
+        JPanel inputPanel = new JPanel(new BorderLayout());
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        inputPanel.add(new JScrollPane(inputArea), BorderLayout.CENTER);
+        inputPanel.add(sendButton, BorderLayout.EAST);
+
+        JPanel rightContainer = new JPanel(new BorderLayout());
+        rightContainer.setBackground(Color.WHITE);
+        rightContainer.add(chatScrollPane, BorderLayout.CENTER);
+        rightContainer.add(inputPanel, BorderLayout.SOUTH);
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightContainer);
+        splitPane.setDividerLocation(250);
+        splitPane.setDividerSize(2);
+        contentPanel.add(splitPane, BorderLayout.CENTER);
 
         // Input panel setup
-        JPanel inputPanel = new JPanel(new BorderLayout(5, 0));
+        // JPanel inputPanel = new JPanel(new BorderLayout(5, 0));
         inputPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         inputArea.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -316,7 +352,8 @@ public class MainChatPage extends BaseFrame {
         inputPanel.add(sendButton, BorderLayout.EAST);
 
         // Main split pane
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, chatScrollPane);
+        // JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel,
+        // chatScrollPane);
         splitPane.setDividerLocation(200);
 
         contentPanel.add(splitPane, BorderLayout.CENTER);

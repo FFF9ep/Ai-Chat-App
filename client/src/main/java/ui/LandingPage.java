@@ -8,42 +8,60 @@ import java.awt.event.ActionListener;
 public class LandingPage extends BaseFrame {
     public LandingPage() {
         super("Landing Page");
+        // Ganti ikon aplikasi
+        try {
+            ImageIcon icon = new ImageIcon(getClass().getResource("../assets/images/logo.png"));
+            setIconImage(icon.getImage());
+        } catch (Exception e) {
+            System.err.println("Ikon tidak ditemukan: " + e.getMessage());
+        }
         initUI();
     }
 
     private void initUI() {
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
 
-        // ImageIcon logoIcon = new
-        // ImageIcon(getClass().getResource("/assets/images/logo.png"));
-        // Image image = logoIcon.getImage(); // transform it
-        // Image newimg = image.getScaledInstance(100, 100,
-        // java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        // logoIcon = new ImageIcon(newimg); // transform it back
-        // JLabel logoLabel = new JLabel(logoIcon);
-        // gbc.gridx = 0;
-        // gbc.gridy = 0;
-        // gbc.gridwidth = 2;
-        // contentPanel.add(logoLabel, gbc);
-        JLabel titleLabel = new JLabel("Welcome to AI Chat App");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        // Background Color
+        contentPanel.setBackground(new Color(40, 44, 52)); // Warna abu-abu gelap
+
+        // Global Insets (Margin antar elemen)
+        gbc.insets = new Insets(15, 15, 15, 15);
+
+        // Gambar Logo
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/assets/images/logo.png"));
+        Image image = logoIcon.getImage(); // Transformasi gambar
+        Image newimg = image.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // Resize gambar
+        logoIcon = new ImageIcon(newimg); // Transform kembali
+        JLabel logoLabel = new JLabel(logoIcon);
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.gridwidth = 2; // Mengambil dua kolom
+        contentPanel.add(logoLabel, gbc);
+
+        // Tulisan Title
+        JLabel titleLabel = new JLabel("Welcome to AI Chat App");
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        titleLabel.setForeground(new Color(0, 0, 0)); // Warna hitam
+        gbc.gridy = 1; // Baris berikutnya
         gbc.gridwidth = 2;
         contentPanel.add(titleLabel, gbc);
 
+        // Tombol Login
         JButton loginButton = new JButton("Log In");
-        gbc.gridy = 1;
+        styleButton(loginButton);
+        gbc.gridy = 2;
         gbc.gridwidth = 1;
-        gbc.gridx = 0;
+        gbc.gridx = 0; // Kolom pertama
         contentPanel.add(loginButton, gbc);
 
+        // Tombol Sign Up
         JButton signUpButton = new JButton("Create an Account");
-        gbc.gridx = 1;
+        styleButton(signUpButton);
+        gbc.gridx = 1; // Kolom kedua
         contentPanel.add(signUpButton, gbc);
 
+        // Action Listener untuk tombol login
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,6 +72,7 @@ public class LandingPage extends BaseFrame {
             }
         });
 
+        // Action Listener untuk tombol sign up
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,14 +84,22 @@ public class LandingPage extends BaseFrame {
         });
     }
 
+    // Method untuk memperindah tombol
+    private void styleButton(JButton button) {
+        button.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        button.setBackground(new Color(33, 150, 243)); // Warna biru
+        button.setForeground(Color.WHITE); // Teks putih
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createEmptyBorder(10, 25, 10, 25));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
+
     @Override
     public void applyTheme(boolean darkMode) {
         if (darkMode) {
-            contentPanel.setBackground(Color.DARK_GRAY);
-            contentPanel.setForeground(Color.WHITE);
+            contentPanel.setBackground(new Color(30, 30, 30)); // Warna latar belakang gelap
         } else {
-            contentPanel.setBackground(Color.LIGHT_GRAY);
-            contentPanel.setForeground(Color.BLACK);
+            contentPanel.setBackground(new Color(240, 240, 240)); // Warna latar belakang terang
         }
     }
 
