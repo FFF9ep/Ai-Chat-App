@@ -14,8 +14,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.UUID;
 
 public class MainChatPage extends BaseFrame {
-    private static final String API_BASE_URL = "http://localhost:3000";
-    // private static final String API_BASE_URL = "http://13.229.209.199:3010";
+    // private static final String API_BASE_URL = "http://localhost:3000";
+    private static final String API_BASE_URL = "http://13.229.209.199:3010";
     private static final int BUBBLE_PADDING = 15;
     private boolean isDarkMode = false;
     private JList<String> chatList;
@@ -727,5 +727,15 @@ public class MainChatPage extends BaseFrame {
         } catch (Exception e) {
             showError("Error deleting chat: " + e.getMessage());
         }
+    }
+
+    public void sendMessage(HttpClient client, String message) {
+        if (isProcessing)
+            return;
+
+        // Logika untuk mengirim pesan
+        // Misalnya, tambahkan pesan ke chat history
+        chatHistory.get(currentChat).add(message);
+        // Kirim permintaan API menggunakan client
     }
 }

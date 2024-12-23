@@ -1,42 +1,57 @@
 # 🎉 Ai-Chat-App 🎉
 
-Welcome to the **Ai-Chat-App**! This Java-powered application is designed for real-time communication, offering a customizable UI and an engaging user experience. Dive in and connect with others instantly! 🌐💬
+Selamat datang di **Ai-Chat-App**! Aplikasi ini dibangun dengan Java dan dirancang untuk komunikasi real-time, menawarkan UI yang dapat disesuaikan dan pengalaman pengguna yang menarik. Mari kita jelajahi fitur-fitur luar biasa dari aplikasi ini! 🌐💬
 
-## 📚 Project Overview
+## 📚 Gambaran Proyek
 
-This project is developed as part of the Final Practical Exam assignment. It showcases the ability to create a dynamic and interactive chat application using Java. The app is designed to be user-friendly and easily customizable to fit various needs.
+Proyek ini dikembangkan sebagai bagian dari tugas Ujian Praktik Akhir. Aplikasi ini menunjukkan kemampuan untuk membuat aplikasi chat yang dinamis dan interaktif menggunakan Java. Aplikasi ini dirancang agar ramah pengguna dan mudah disesuaikan untuk memenuhi berbagai kebutuhan. 🎓✨
 
-## 🚀 Features
+## 🚀 Fitur Utama
 
-- **Real-Time Communication**: Chat with others instantly without any delay.
-- **Customizable UI**: Tailor the look and feel of the app to match your style.
-- **Engaging User Experience**: Enjoy a seamless and interactive chat experience.
+- **Komunikasi Real-Time**: Chat dengan orang lain secara instan tanpa penundaan. ⏱️
+- **UI yang Dapat Disesuaikan**: Sesuaikan tampilan dan nuansa aplikasi agar sesuai dengan gaya Anda. 🎨
+- **Pengalaman Pengguna yang Menarik**: Nikmati pengalaman chat yang mulus dan interaktif. 🗨️
+- **Tema Gelap dan Terang**: Pilih antara mode gelap dan terang untuk kenyamanan visual. 🌙☀️
+- **Riwayat Chat**: Simpan dan akses riwayat chat Anda dengan mudah. 📜
+- **Pengelolaan Chat**: Edit dan hapus chat dengan mudah melalui menu konteks. 🗑️✏️
 
-## 🛠️ Getting Started
+## 🛠️ Cara Memulai
 
-To get started with the Ai-Chat-App, follow these steps:
+Untuk memulai dengan Ai-Chat-App, ikuti langkah-langkah berikut:
 
-1. **Clone the Repository**:    ```bash
-   git clone https://github.com/FFF9ep/ai-chat-app.git   ```
-2. **Navigate to the Project Directory**:   ```bash
-   cd ai-chat-app   ```
-3. **Build the Project**:   ```bash
-   ./gradlew build   ```
-4. **Run the Application**:   ```bash
-   ./gradlew run   ```
+1. **Clone Repository Client**: 
+   ```bash
+   git clone https://github.com/FFF9ep/ai-chat-app.git
+   ```
+2. **Clone Repository Server**: 
+   ```bash
+   git clone https://github.com/Beam742/UAP-ChatServer
+   ```
+3. **Navigasi ke Direktori Proyek**: 
+   ```bash
+   cd ai-chat-app
+   ```
+4. **Bangun Proyek**: 
+   ```bash
+   ./gradlew build
+   ```
+5. **Jalankan Aplikasi**: 
+   ```bash
+   ./gradlew run
+   ```
 
-## 📄 License
+## 📄 Lisensi
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+Proyek ini dilisensikan di bawah MIT License. Lihat file [LICENSE](LICENSE) untuk detail lebih lanjut. 📜
 
-## 🤝 Contributing
+## 🤝 Kontribusi
 
-Contributions are welcome! Feel free to fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
+Kontribusi sangat diterima! Jangan ragu untuk fork repository ini dan kirimkan pull request. Untuk perubahan besar, harap buka isu terlebih dahulu untuk mendiskusikan apa yang ingin Anda ubah. 💡
 
-## 📞 Contact
+## 📞 Kontak
 
-For any questions or feedback, please reach out to the project maintainer at [fandardyy@gmail.com](mailto:fandardyy@gmail.com) & [bimo.putra742@gmail.com](mailto:bimo.putra742@gmail.com).
+Jika Anda memiliki pertanyaan atau umpan balik, silakan hubungi pemelihara proyek di [fandardyy@gmail.com](mailto:fandardyy@gmail.com) & [bimo.putra742@gmail.com](mailto:bimo.putra742@gmail.com). 📧
 
 ---
 
-Thank you for checking out the Ai-Chat-App! We hope you enjoy using it as much as we enjoyed building it. Happy chatting! 🎈
+Terima kasih telah memeriksa Ai-Chat-App! Kami berharap Anda menikmati penggunaannya sebanyak kami menikmati membangunnya. Selamat chatting! 🎈

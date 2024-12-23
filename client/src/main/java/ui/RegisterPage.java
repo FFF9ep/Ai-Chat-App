@@ -12,8 +12,8 @@ public class RegisterPage extends BaseFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
 
-    // private static final String API_BASE_URL = "http://13.229.209.199:3010";
-    private static final String API_BASE_URL = "http://localhost:3000";
+    private static final String API_BASE_URL = "http://13.229.209.199:3010";
+    // private static final String API_BASE_URL = "http://localhost:3000";
 
     public RegisterPage() {
         super("Register Page");
@@ -64,48 +64,16 @@ public class RegisterPage extends BaseFrame {
         contentPanel.add(loginLabel, gbc);
 
         registerButton.addActionListener(e -> {
-            String username = usernameField.getText();
-            String password = new String(passwordField.getPassword());
-
-            if (username.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(this,
-                        "Username dan password harus diisi",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
             try {
-                JSONObject requestBody = new JSONObject();
-                requestBody.put("username", username);
-                requestBody.put("password", password);
-
-                HttpClient client = HttpClient.newHttpClient();
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(API_BASE_URL + "/api/register"))
-                        .header("Content-Type", "application/json")
-                        .POST(HttpRequest.BodyPublishers.ofString(requestBody.toString()))
-                        .build();
-
-                HttpResponse<String> response = client.send(request,
-                        HttpResponse.BodyHandlers.ofString());
-
-                if (response.statusCode() == 201) {
-                    JOptionPane.showMessageDialog(this,
-                            "Registrasi berhasil! Silakan login.",
-                            "Success",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    LoginPage loginPage = new LoginPage();
-                    loginPage.applyTheme(false);
-                    loginPage.setVisible(true);
-                    dispose();
-                } else {
-                    JSONObject error = new JSONObject(response.body());
-                    JOptionPane.showMessageDialog(this,
-                            error.getString("error"),
-                            "Registration Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
+                performRegistration(HttpClient.newHttpClient());
+                JOptionPane.showMessageDialog(this,
+                        "Registrasi berhasil! Silakan login.",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+                LoginPage loginPage = new LoginPage();
+                loginPage.applyTheme(false);
+                loginPage.setVisible(true);
+                dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this,
                         "Error connecting to server: " + ex.getMessage(),
@@ -133,6 +101,40 @@ public class RegisterPage extends BaseFrame {
         } else {
             contentPanel.setBackground(Color.LIGHT_GRAY);
             contentPanel.setForeground(Color.BLACK);
+        }
+    }
+
+    public JTextField getUsernameField() {
+        return usernameField;
+    }
+
+    public JPasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public void performRegistration(HttpClient client) throws Exception {
+        String username = usernameField.getText();
+        String password = new String(passwordField.getPassword());
+
+        if (username.isEmpty() || password.isEmpty()) {
+            throw new Exception("Username dan password harus diisi");
+        }
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("username", username);
+        requestBody.put("password", password);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(API_BASE_URL + "/api/register"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody.toString()))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() != 201) {
+            JSONObject error = new JSONObject(response.body());
+            throw new Exception(error.getString("error"));
         }
     }
 }

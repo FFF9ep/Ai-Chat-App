@@ -14,8 +14,8 @@ public class LoginPage extends BaseFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
 
-    // private static final String API_BASE_URL = "http://13.229.209.199:3010";
-    private static final String API_BASE_URL = "http://localhost:3000";
+    private static final String API_BASE_URL = "http://13.229.209.199:3010";
+    // private static final String API_BASE_URL = "http://localhost:3000";
 
     public LoginPage() {
         super("Login Page");
@@ -143,5 +143,13 @@ public class LoginPage extends BaseFrame {
             loginPage.applyTheme(false);
             loginPage.setVisible(true);
         });
+    }
+
+    public JTextField getUsernameField() {
+        return usernameField;
+    }
+
+    public JPasswordField getPasswordField() {
+        return passwordField;
     }
 }
