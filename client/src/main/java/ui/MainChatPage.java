@@ -346,7 +346,7 @@ public class MainChatPage extends BaseFrame {
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         sendButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        sendButton.setPreferredSize(new Dimension(70, 40));
+        sendButton.setPreferredSize(new Dimension(100, 40));
 
         inputPanel.add(inputScrollPane, BorderLayout.CENTER);
         inputPanel.add(sendButton, BorderLayout.EAST);

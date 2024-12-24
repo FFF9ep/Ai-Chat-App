@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class LandingPage extends BaseFrame {
     public LandingPage() {
         super("Landing Page");
-        // Ganti ikon aplikasi
+        
         try {
             ImageIcon icon = new ImageIcon(getClass().getResource("../assets/images/logo.png"));
             setIconImage(icon.getImage());

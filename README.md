@@ -19,11 +19,11 @@ Proyek ini dikembangkan sebagai bagian dari tugas Ujian Praktik Akhir. Aplikasi 
 
 Untuk memulai dengan Ai-Chat-App, ikuti langkah-langkah berikut:
 
-1. **Clone Repository Client**: 
+1. **Clone Repository Client**:
    ```bash
    git clone https://github.com/FFF9ep/ai-chat-app.git
    ```
-2. **Clone Repository Server**: 
+2. **Clone Repository Server**:
    ```bash
    git clone https://github.com/Beam742/UAP-ChatServer
    ```
